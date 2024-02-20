@@ -1,0 +1,4 @@
+src/database.ini
+venv/
+__pycache__
+.vscode
