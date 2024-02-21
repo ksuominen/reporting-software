@@ -33,5 +33,3 @@ def db_get_workhours(consultname=None, customername=None):
             print(row)
         cursor.close()
         con.close()
-
-db_get_workhours("Mari")
