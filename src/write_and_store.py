@@ -3,9 +3,13 @@ from azure.storage.blob import BlobServiceClient
 from datetime import datetime
 
 
-def write_to_file():
-    file = open(file="src/data/report.txt", mode="w")
-    file.write("Hello, World!")
+def write_to_file(sql_result):
+    file = open(file="data/report.txt", mode="w")
+
+    for result in sql_result:
+        consult, customer, date, hours = result
+        row = f"{str(date)} consult: {consult}, customer: {customer}, hours: {hours}\n"
+        file.write(row)
     file.close()
 
 
@@ -17,5 +21,13 @@ def send_blob_to_azure():
     blob_client = blob_service_client.get_blob_client(
         container="blobcontainer", blob=filename
     )
-    with open(file="src/data/report.txt", mode="rb") as data:
+    with open(file="data/report.txt", mode="rb") as data:
         blob_client.upload_blob(data)
+
+
+from queries import db_get_workhours
+
+if __name__ == ("__main__"):
+    sql_result = db_get_workhours("Minja")
+    write_to_file(sql_result)
+    send_blob_to_azure()
