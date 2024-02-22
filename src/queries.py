@@ -1,6 +1,7 @@
-from config import config
+from src.config import config
 import psycopg2
 from psycopg2 import sql
+from datetime import datetime
 
 
 def connect():
@@ -13,21 +14,20 @@ def connect():
 
 
 # Add daily workhours for a consult
-def db_get_workhours(consultname=None, customername=None):
+def db_get_workhours(date=datetime.now()):
+    date_ob = datetime.date(date)
     query = sql.SQL(
-        """
-        SELECT consultname, customername, DATE(starttime) as work_date, 
-            SUM((EXTRACT(EPOCH FROM (endtime - starttime))/60) - lunchbreak) / 60 as total_hours
-        FROM workhours
-        WHERE consultname = %s OR customername = %s
-        GROUP BY consultname, customername, work_date
-        ORDER BY work_date ASC;
-        """
+        "SELECT consultname, customername, DATE(starttime) as work_date, SUM((EXTRACT(EPOCH FROM (endtime - starttime))/60) - lunchbreak) / 60 as total_hours FROM workhours WHERE CAST(starttime AS DATE) = %(date_ob)s GROUP BY consultname, customername, work_date ORDER BY consultname, work_date ASC"
     )
     con = connect()
     if con is not None:
         cursor = con.cursor()
-        cursor.execute(query, (consultname, customername))
+        cursor.execute(
+            query,
+            {
+                "date_ob": date_ob,
+            },
+        )
         rows = cursor.fetchall()
         cursor.close()
         con.close()
