@@ -1,5 +1,11 @@
-This is a report for 11.12.2023
-2023-12-11 consult: Minja, customer: Kesko, hours: 6.25
+This is a report for 02.01.2024
+2024-01-02 consult: Mari, customer: Kone, hours: 8.00
+2024-01-02 consult: Matti, customer: Kone, hours: 7.50
+2024-01-02 consult: Mikko, customer: Kesko, hours: 6.25
+2024-01-02 consult: Minja, customer: Kesko, hours: 6.50
 
 Cumulative hours per customer
-consult: Minja, customer: Kesko, cumulative hours: 6.25
+consult: Mikko, customer: Kesko, cumulative hours: 6.25
+consult: Minja, customer: Kesko, cumulative hours: 12.75
+consult: Mari, customer: Kone, cumulative hours: 8.00
+consult: Matti, customer: Kone, cumulative hours: 15.50
