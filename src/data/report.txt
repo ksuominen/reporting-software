@@ -1,1 +1,9 @@
-This is a report for 31.12.20232023-12-31 consult: Mikko, customer: SOK, hours: 7.2500000000000000
+This is a report for 11.12.2023
+2023-12-11 consult: Minja, customer: Kesko, hours: 6.2500000000000000
+
+Cumulative hours per customerconsult: Minja, customer: Kesko, cumulative hours: 6.25
+consult: Minja, customer: Kesko, cumulative hours: 13.50
+consult: Minja, customer: Kone, cumulative hours: 8.92
+consult: Mari, customer: Neste, cumulative hours: 7.33
+consult: Mikko, customer: SOK, cumulative hours: 7.25
+consult: Minja, customer: SOK, cumulative hours: 16.50
