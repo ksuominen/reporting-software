@@ -32,3 +32,26 @@ def db_get_workhours(consultname=None, customername=None):
         cursor.close()
         con.close()
         return rows
+
+
+def db_cumulative_hours_by_customers(date=datetime.now):
+    query = sql.SQL(
+        '''
+        SELECT consultname, customername, 
+        ROUND (
+            SUM((EXTRACT(EPOCH FROM (endtime - starttime)/60) - lunchbreak) / 60) OVER (
+        PARTITION BY customername ORDER BY starttime
+        ), 2
+        ) AS cumulative_hours
+        FROM workhours
+        ORDER BY customername, consultname;
+        '''
+    )
+    con = connect()
+    if con is not None:
+        cursor = con.cursor()
+        cursor.execute(query, ())
+        rows = cursor.fetchall()
+        cursor.close()
+        con.close()
+        return rows
