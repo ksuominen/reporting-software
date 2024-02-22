@@ -16,7 +16,7 @@ def write_to_file(workhours, cumulative_workhours, date=datetime.now()):
     file.write("Cumulative hours per customer\n")
     for result in cumulative_workhours:
         consult, customer, cumulative_workhours = result
-        row = f"consult: {consult}, customer: {customer}, cumulative hours: {cumulative_workhours}\n"
+        row = f"customer: {customer}, cumulative hours: {cumulative_workhours}, consult: {consult}\n"
         file.write(row)
     file.close()
 
