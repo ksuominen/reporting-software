@@ -1,4 +1,1 @@
-2023-12-11 consult: Minja, customer: Kesko, hours: 6.2500000000000000
-2024-01-31 consult: Minja, customer: Kesko, hours: 7.2500000000000000
-2024-02-19 consult: Minja, customer: Kone, hours: 8.9166666666666667
-2024-02-20 consult: Minja, customer: SOK, hours: 9.2500000000000000
+This is a report for 31.12.20232023-12-31 consult: Mikko, customer: SOK, hours: 7.2500000000000000
