@@ -20,8 +20,8 @@ def send_report_by_day(date):
         return {"error": "incorrect date format,  should be YYYYMMDD"}
     try:
         workhours = db_get_workhours(date_ob)
-        cumulative_workhours = db_cumulative_hours_by_customers(date_ob)
-        write_to_file(workhours, cumulative_workhours, date_ob)
+        cumulative_hours = db_cumulative_hours_by_customers(date_ob)
+        write_to_file(workhours, cumulative_hours, date_ob)
         send_blob_to_azure(date_ob)
         return {"success": "report sent to Azure"}
     except:

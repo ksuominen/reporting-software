@@ -34,7 +34,8 @@ def db_get_workhours(date=datetime.now()):
         return rows
 
 
-def db_cumulative_hours_by_customers(date=datetime.now):
+def db_cumulative_hours_by_customers(date=datetime.now()):
+    date_ob = datetime.date(date)
     query = sql.SQL(
         '''
         SELECT consultname, customername, 
@@ -44,13 +45,19 @@ def db_cumulative_hours_by_customers(date=datetime.now):
         ), 2
         ) AS cumulative_hours
         FROM workhours
+        WHERE CAST(starttime AS DATE) = %(date_ob)s
         ORDER BY customername, consultname;
         '''
     )
     con = connect()
     if con is not None:
         cursor = con.cursor()
-        cursor.execute(query, ())
+        cursor.execute(
+            query,
+            {
+                "date_ob": date_ob,
+            },
+        )
         rows = cursor.fetchall()
         cursor.close()
         con.close()
