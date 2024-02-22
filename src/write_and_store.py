@@ -3,14 +3,20 @@ from azure.storage.blob import BlobServiceClient
 from datetime import datetime
 
 
-def write_to_file(sql_result, date=datetime.now()):
+def write_to_file(workhours, cumulative_workhours, date=datetime.now()):
     datestr = datetime.date(date).strftime("%d.%m.%Y")
     file = open(file="data/report.txt", mode="w")
     first_row = f"This is a report for {datestr}\n"
     file.write(first_row)
-    for result in sql_result:
+    for result in workhours:
         consult, customer, date, hours = result
         row = f"{str(date)} consult: {consult}, customer: {customer}, hours: {hours}\n"
+        file.write(row)
+    file.write("\n")
+    file.write("Cumulative hours per customer\n")
+    for result in cumulative_workhours:
+        consult, customer, cumulative_workhours = result
+        row = f"consult: {consult}, customer: {customer}, cumulative hours: {cumulative_workhours}\n"
         file.write(row)
     file.close()
 
