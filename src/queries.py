@@ -17,7 +17,15 @@ def connect():
 def db_get_workhours(date=datetime.now()):
     date_ob = datetime.date(date)
     query = sql.SQL(
-        "SELECT consultname, customername, DATE(starttime) as work_date, SUM((EXTRACT(EPOCH FROM (endtime - starttime))/60) - lunchbreak) / 60 as total_hours FROM workhours WHERE CAST(starttime AS DATE) = %(date_ob)s GROUP BY consultname, customername, work_date ORDER BY consultname, work_date ASC"
+            '''
+            SELECT consultname, customername, DATE(starttime) as work_date,
+            ROUND ( 
+            SUM((EXTRACT(EPOCH FROM (endtime - starttime))/60) - lunchbreak) / 60
+            , 2) AS total_hours 
+            FROM workhours 
+            WHERE CAST(starttime AS DATE) = %(date_ob)s 
+            GROUP BY consultname, customername, work_date ORDER BY consultname, work_date ASC;
+            '''
     )
     con = connect()
     if con is not None:
@@ -42,8 +50,7 @@ def db_cumulative_hours_by_customers(date=datetime.now()):
         ROUND (
             SUM((EXTRACT(EPOCH FROM (endtime - starttime)/60) - lunchbreak) / 60) OVER (
         PARTITION BY customername ORDER BY starttime
-        ), 2
-        ) AS cumulative_hours
+        ), 2) AS cumulative_hours
         FROM workhours
         WHERE CAST(starttime AS DATE) = %(date_ob)s
         ORDER BY customername, consultname;
